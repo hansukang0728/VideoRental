@@ -44,8 +44,8 @@ public class VRUI {
 
 		//Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
 		//Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
-		Video v1 = Video.VideoFactory("v1", Video.CD, Video.PriceCode.Regular, new Date()) ;
-		Video v2 = Video.VideoFactory("v2", Video.DVD, Video.PriceCode.New_Release, new Date());
+		Video v1 = Video.VideoFactory("v1", Video.CD, Price.PriceCode.REGULAR, new Date()) ;
+		Video v2 = Video.VideoFactory("v2", Video.DVD, Price.PriceCode.NEW_RELEASE, new Date());
 
 		VRManager.videos.add(v1) ;
 		VRManager.videos.add(v2) ;

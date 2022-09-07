@@ -3,27 +3,9 @@ import java.util.Date;
 abstract class Video {
 	private String title ;
 
-	private PriceCode priceCode ;
+	private Price.PriceCode priceCode ;
 
-	public enum PriceCode
-	{
-		None, Regular, New_Release;
-
-		static PriceCode values(int number)
-		{
-			switch (number)
-			{
-				case 1 :
-					return Regular;
-				case 2:
-					return New_Release;
-				default:
-					return None;
-
-			}
-		}
-	}
-
+	private Price vedioPrice;
 	private int videoType ;
 	public static final int VHS = 1 ;
 	public static final int CD = 2 ;
@@ -32,15 +14,15 @@ abstract class Video {
 	private Date registeredDate ;
 	private boolean rented ;
 
-	public Video(String title, int videoType, PriceCode priceCode, Date registeredDate) {
+	public Video(String title, int videoType, Price.PriceCode priceCode, Date registeredDate) {
 		this.setTitle(title) ;
-		this.setVideoType(videoType) ;
-		this.setPriceCode(priceCode) ;
+		//this.setVideoType(videoType) ;
+		this.setVideoPrice(Price.PriceFactory(priceCode));
 		this.setRegisteredDate(registeredDate);
 	}
 
 
-	public static Video VideoFactory(String title,  int videoType, PriceCode priceCode, Date registeredDate)
+	public static Video VideoFactory(String title,  int videoType, Price.PriceCode priceCode, Date registeredDate)
 	{
 		switch (videoType)
 		{
@@ -58,13 +40,30 @@ abstract class Video {
 	}
 
 	abstract public int getLateReturnPointPenalty();
+	abstract int getVideoType();
 
-	public PriceCode getPriceCode() {
-		return priceCode;
+	public Price.PriceCode getPriceCode()
+	{
+		return vedioPrice.getPriceCode();
+
+	}
+	public int getPoint(int dayRented, int LateReturnPointPenalty)
+	{
+		return vedioPrice.getPoint(dayRented, LateReturnPointPenalty);
 	}
 
-	public void setPriceCode(PriceCode priceCode) {
+	public double getCharge(int dayRented)
+	{
+		return vedioPrice.getCharge(dayRented);
+	}
+
+	public void setPriceCode(Price.PriceCode priceCode) {
 		this.priceCode = priceCode;
+	}
+
+
+	public void setVideoPrice(Price videoPrice) {
+		this.vedioPrice = videoPrice;
 	}
 
 	public String getTitle() {
@@ -89,11 +88,4 @@ abstract class Video {
 		this.registeredDate = registeredDate;
 	}
 
-	public int getVideoType() {
-		return videoType;
-	}
-
-	public void setVideoType(int videoType) {
-		this.videoType = videoType;
-	}
 }
