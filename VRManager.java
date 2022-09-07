@@ -16,7 +16,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) {
             System.out.println("No customer found");
@@ -33,7 +39,10 @@ public class VRManager {
         }
     }
 
-    private Customer findCustomer(String customerName) {
+    public void returnVideo() {
+        System.out.println("Enter customer name: ");
+        String customerName = scanner.next();
+
         Customer foundCustomer = null;
         for (Customer customer : customers) {
             if (customer.getName().equals(customerName)) {
@@ -41,14 +50,6 @@ public class VRManager {
                 break;
             }
         }
-        return foundCustomer;
-    }
-
-    public void returnVideo() {
-        System.out.println("Enter customer name: ");
-        String customerName = scanner.next();
-
-        Customer foundCustomer = findCustomer(customerName);
         if (foundCustomer == null) return;
 
         System.out.println("Enter video title to return: ");
@@ -68,7 +69,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) {
             System.out.println("No customer found");
@@ -82,7 +89,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) return;
 
@@ -124,7 +137,7 @@ public class VRManager {
             int priceCode = scanner.nextInt();
 
             Date registeredDate = new Date();
-            Video video = new Video(title, videoType, priceCode, registeredDate);
+            Video video = Video.VideoFactory(title, videoType, Video.PriceCode.values(priceCode), registeredDate) ;
             videos.add(video);
         }
     }

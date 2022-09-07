@@ -1,11 +1,28 @@
 import java.util.Date;
 
-public class Video {
+abstract class Video {
 	private String title ;
 
-	private int priceCode ;
-	public static final int REGULAR = 1 ;
-	public static final int NEW_RELEASE =2 ;
+	private PriceCode priceCode ;
+
+	public enum PriceCode
+	{
+		None, Regular, New_Release;
+
+		static PriceCode values(int number)
+		{
+			switch (number)
+			{
+				case 1 :
+					return Regular;
+				case 2:
+					return New_Release;
+				default:
+					return None;
+
+			}
+		}
+	}
 
 	private int videoType ;
 	public static final int VHS = 1 ;
@@ -15,27 +32,38 @@ public class Video {
 	private Date registeredDate ;
 	private boolean rented ;
 
-	public Video(String title, int videoType, int priceCode, Date registeredDate) {
+	public Video(String title, int videoType, PriceCode priceCode, Date registeredDate) {
 		this.setTitle(title) ;
 		this.setVideoType(videoType) ;
 		this.setPriceCode(priceCode) ;
-		this.registeredDate = registeredDate ;
+		this.setRegisteredDate(registeredDate);
 	}
 
-	public int getLateReturnPointPenalty() {
-		int pentalty = 0 ;
-		switch ( videoType ) {
-			case VHS: pentalty = 1 ; break ;
-			case CD: pentalty = 2 ; break ;
-			case DVD: pentalty = 3 ; break ;
+
+	public static Video VideoFactory(String title,  int videoType, PriceCode priceCode, Date registeredDate)
+	{
+		switch (videoType)
+		{
+			case VHS:
+				return new VHSVideo(title, videoType, priceCode,  registeredDate);
+			case CD:
+				return new CDVideo(title, videoType, priceCode, registeredDate);
+			case DVD:
+				return new DVDVideo(title, videoType, priceCode, registeredDate);
+			default:
+				break;
+
 		}
-		return pentalty ;
+		return null;
 	}
-	public int getPriceCode() {
+
+	abstract public int getLateReturnPointPenalty();
+
+	public PriceCode getPriceCode() {
 		return priceCode;
 	}
 
-	public void setPriceCode(int priceCode) {
+	public void setPriceCode(PriceCode priceCode) {
 		this.priceCode = priceCode;
 	}
 
@@ -53,6 +81,12 @@ public class Video {
 
 	public void setRented(boolean rented) {
 		this.rented = rented;
+	}
+
+	// dead code 주석처리 삭제
+
+	public void setRegisteredDate(Date registeredDate) {
+		this.registeredDate = registeredDate;
 	}
 
 	public int getVideoType() {
