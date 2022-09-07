@@ -65,6 +65,7 @@ public class VRUI {
 
 	public void listCustomers() {
 		System.out.println("List of customers");
+		VRManager.customerManager.printCustomers();
 		System.out.println("End of list");
 	}
 
