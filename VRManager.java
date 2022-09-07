@@ -114,7 +114,8 @@ public class VRManager {
             int priceCode = scanner.nextInt();
 
             Date registeredDate = new Date();
-            Video video = new Video(title, videoType, priceCode, registeredDate);
+            Video video =  Video.VideoFactory(title, videoType, Video.PriceCode.values(priceCode), registeredDate);
+    		
             videos.add(video);
         }
     }
