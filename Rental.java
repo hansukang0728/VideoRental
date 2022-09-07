@@ -63,4 +63,32 @@ public class Rental {
 		}
 		return daysRented;
 	}
+
+	private double getNewReleaseCharge(int daysRented) {
+		return daysRented * 3;
+
+	}
+
+	private double getRegularVideoCharge(int daysRented) {
+		double eachCharge = 2;
+		if (daysRented > 2)
+			eachCharge += (daysRented - 2) * 1.5;
+		return eachCharge;
+	}
+
+	public double getCharge() {
+		double eachCharge = 0;
+		int eachPoint = 0;
+		int daysRented = getDaysRented();
+
+		switch (getVideo().getPriceCode()) {
+			case Regular:
+				eachCharge = getRegularVideoCharge(daysRented);
+				break;
+			case New_Release:
+				eachCharge = getNewReleaseCharge(daysRented);
+				break;
+		}
+		return eachCharge;
+	}
 }
