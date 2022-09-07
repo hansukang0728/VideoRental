@@ -12,6 +12,20 @@ public class Rental {
 		rentDate = new Date() ;
 	}
 
+	public int getPoint() {
+		int eachPoint = 0 ;
+		int daysRented = getDaysRented();
+
+		eachPoint++;
+
+		if ((getVideo().getPriceCode() == Video.PriceCode.New_Release) )
+			eachPoint++;
+
+		if ( daysRented > getDaysRentedLimit() )
+			eachPoint -= Math.min(eachPoint, getVideo().getLateReturnPointPenalty()) ;
+		return eachPoint;
+	}
+
 	public Video getVideo() {
 		return video;
 	}

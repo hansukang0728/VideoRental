@@ -34,29 +34,16 @@ public class Customer {
 	public String getReport() {
 		String result = "Customer Report for " + getName() + "\n";
 
-
 		List<Rental> rentals = getRentals();
 
-		int totalPoint = 0;
-
 		for (Rental each : rentals) {
-			int eachPoint = 0 ;
-			int daysRented = each.getDaysRented();
 
-			eachPoint++; //해당 문장으로 인해 Point 계산 분리가 불가. 버그인지 사양인지 확인 필요
+			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + each.getDaysRented() + "\tCharge: " + each.getCharge()
+					+ "\tPoint: " + each.getPoint() + "\n";
 
-			if ((each.getVideo().getPriceCode() == Video.PriceCode.New_Release) )
-				eachPoint++;
-
-			if ( daysRented > each.getDaysRentedLimit() )
-				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
-
-			result += "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + each.getCharge()
-					+ "\tPoint: " + eachPoint + "\n";
-
-			totalPoint+=eachPoint;
 		}
 
+		int totalPoint = getTotalPoint();
 		result += "Total charge: " + getTotalCharge() + "\tTotal Point:" + totalPoint + "\n";
 
 		if ( totalPoint >= 10 ) {
@@ -66,6 +53,19 @@ public class Customer {
 			System.out.println("Congrat! You earned two free coupon");
 		}
 		return result;
+	}
+
+	private int getTotalPoint(){
+		List<Rental> rentals = getRentals();
+
+		int totalPoint = 0;
+
+		for (Rental each : rentals) {
+			int eachPoint = each.getPoint();
+
+			totalPoint+=eachPoint;
+		}
+		return totalPoint;
 	}
 
 
