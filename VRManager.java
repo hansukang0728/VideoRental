@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 public class VRManager {
     static Scanner scanner;
-    //List<Customer> customers = new ArrayList<Customer>();
-    CustomerManager customerManager = new CustomerManager();
+    List<Customer> customers = new ArrayList<Customer>();
     List<Video> videos = new ArrayList<Video>();
 
     public VRManager() {
@@ -17,7 +16,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = customerManager.findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) {
             System.out.println("No customer found");
@@ -38,7 +43,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = customerManager.findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
         if (foundCustomer == null) return;
 
         System.out.println("Enter video title to return: ");
@@ -58,7 +69,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = customerManager.findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) {
             System.out.println("No customer found");
@@ -72,7 +89,13 @@ public class VRManager {
         System.out.println("Enter customer name: ");
         String customerName = scanner.next();
 
-        Customer foundCustomer = customerManager.findCustomer(customerName);
+        Customer foundCustomer = null;
+        for (Customer customer : customers) {
+            if (customer.getName().equals(customerName)) {
+                foundCustomer = customer;
+                break;
+            }
+        }
 
         if (foundCustomer == null) return;
 
@@ -102,7 +125,7 @@ public class VRManager {
             System.out.println("Enter customer name: ");
             String name = scanner.next();
             Customer customer = new Customer(name);
-            customerManager.add(customer);
+            customers.add(customer);
         } else {
             System.out.println("Enter video title to register: ");
             String title = scanner.next();
@@ -114,7 +137,7 @@ public class VRManager {
             int priceCode = scanner.nextInt();
 
             Date registeredDate = new Date();
-            Video video = new Video(title, videoType, priceCode, registeredDate);
+            Video video = Video.VideoFactory(title, videoType, Video.PriceCode.values(priceCode), registeredDate) ;
             videos.add(video);
         }
     }
