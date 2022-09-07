@@ -39,8 +39,8 @@ public class VRUI {
 	private void init() {
 		Customer james = new Customer("James") ;
 		Customer brown = new Customer("Brown") ;
-		VRManager.customers.add(james) ;
-		VRManager.customers.add(brown) ;
+		VRManager.customerManager.add(james) ;
+		VRManager.customerManager.add(brown) ;
 
 		Video v1 = new Video("v1", Video.CD, Video.REGULAR, new Date()) ;
 		Video v2 = new Video("v2", Video.DVD, Video.NEW_RELEASE, new Date()) ;
@@ -65,14 +65,6 @@ public class VRUI {
 
 	public void listCustomers() {
 		System.out.println("List of customers");
-		for ( Customer customer: VRManager.customers) {
-			System.out.println("Name: " + customer.getName() +
-					"\tRentals: " + customer.getRentals().size()) ;
-			for ( Rental rental: customer.getRentals() ) {
-				System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
-				System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
-			}
-		}
 		System.out.println("End of list");
 	}
 
