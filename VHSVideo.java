@@ -12,4 +12,9 @@ public class VHSVideo extends Video{
     public int getLateReturnPointPenalty() {
         return penalty;
     }
+
+    @Override
+    public int getLimit() {
+        return 5;
+    }
 }

@@ -96,4 +96,6 @@ abstract class Video {
 	public void setVideoType(int videoType) {
 		this.videoType = videoType;
 	}
+
+	public abstract int getLimit();
 }

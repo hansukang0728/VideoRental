@@ -12,4 +12,9 @@ public class CDVideo extends Video{
     public int getLateReturnPointPenalty() {
         return penalty;
     }
+
+    @Override
+    public int getLimit() {
+        return 3;
+    }
 }
